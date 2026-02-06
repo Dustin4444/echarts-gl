@@ -5,6 +5,8 @@ import * as echarts from 'echarts/lib/echarts';
 
 import GraphGLSeries from './GraphGLSeries';
 import GraphGLView from './GraphGLView';
+import ForceAtlas2GPU from './ForceAtlas2GPU';
+import ForceAtlas2 from './ForceAtlas2';
 
 function normalize(a) {
     if (!(a instanceof Array)) {
@@ -13,6 +15,10 @@ function normalize(a) {
     return a;
 }
 export function install(registers) {
+
+    // Mount ForceAtlas2 to echarts namespace
+    echarts.ForceAtlas2 = ForceAtlas2;
+    echarts.ForceAtlas2GPU = ForceAtlas2GPU;
 
     registers.registerChartView(GraphGLView);
     registers.registerSeriesModel(GraphGLSeries);
@@ -140,7 +146,7 @@ export function install(registers) {
         });
     });
 
-    function noop() {}
+    function noop() { }
 
     registers.registerAction({
         type: 'graphGLStartLayout',
