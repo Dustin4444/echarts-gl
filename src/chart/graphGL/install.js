@@ -1,12 +1,15 @@
 // TODO ECharts GL must be imported whatever component,charts is imported.
 import '../../echarts-gl';
 
-import * as echarts from 'echarts/lib/echarts';
+import * as echartsNS from 'echarts/lib/echarts';
 
 import GraphGLSeries from './GraphGLSeries';
 import GraphGLView from './GraphGLView';
 import ForceAtlas2GPU from './ForceAtlas2GPU';
 import ForceAtlas2 from './ForceAtlas2';
+import { mountEChartsNamespace } from '../../util/mountEChartsNamespace';
+
+var echarts = echartsNS;
 
 function normalize(a) {
     if (!(a instanceof Array)) {
@@ -17,8 +20,8 @@ function normalize(a) {
 export function install(registers) {
 
     // Mount ForceAtlas2 to echarts namespace
-    echarts.ForceAtlas2 = ForceAtlas2;
-    echarts.ForceAtlas2GPU = ForceAtlas2GPU;
+    mountEChartsNamespace(echarts, 'ForceAtlas2', ForceAtlas2);
+    mountEChartsNamespace(echarts, 'ForceAtlas2GPU', ForceAtlas2GPU);
 
     registers.registerChartView(GraphGLView);
     registers.registerSeriesModel(GraphGLSeries);

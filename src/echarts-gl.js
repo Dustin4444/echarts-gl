@@ -27,12 +27,14 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as echarts from 'echarts/lib/echarts';
+import * as echartsNS from 'echarts/lib/echarts';
 import graphicGL from './util/graphicGL';
 import LayerGL from './core/LayerGL';
 import backwardCompat from './preprocessor/backwardCompat';
+import { mountEChartsNamespace } from './util/mountEChartsNamespace';
 
-echarts.graphicGL = graphicGL;
+var echarts = echartsNS;
+mountEChartsNamespace(echarts, 'graphicGL', graphicGL);
 
 function EChartsGL(zr) {
     this._layers = {};
